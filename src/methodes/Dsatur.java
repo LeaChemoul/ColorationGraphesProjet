@@ -4,7 +4,6 @@ import structure.Arc;
 import structure.GrapheListe;
 import structure.Sommet;
 
-import javax.swing.text.html.HTMLDocument;
 import java.util.*;
 
 public class Dsatur {
@@ -19,7 +18,7 @@ public class Dsatur {
         return graphe;
     }
 
-    public String plusPetiteCouleur(ArrayList<String> couleursVoisins,Couleur[] couleurs ) throws NullPointerException{
+    public String plusPetiteCouleur(LinkedList<String> couleursVoisins,Couleur[] couleurs ) throws NullPointerException{
         for (Couleur couleur : couleurs) {
             if (!couleursVoisins.contains(couleur.getC()))
                 return couleur.getC();
@@ -27,7 +26,7 @@ public class Dsatur {
         throw new NullPointerException();
     }
 
-    public Sommet maxDsat(LinkedHashMap<Sommet, Integer> DSAT, LinkedList<Sommet> sommets){
+    private Sommet maxDsat(LinkedHashMap<Sommet, Integer> DSAT, LinkedList<Sommet> sommets){
         int maxValue= 0;
 
         Sommet max = sommets.get(0);
@@ -49,7 +48,7 @@ public class Dsatur {
     public void algorithme(){
         LinkedList<String> couleursUtil = new LinkedList<>();
         //Tri décroissant
-        LinkedList<Sommet> listeOrdo = Tris.trier(1, graphe);
+        LinkedList<Sommet> listeOrdo = Tris.trier(3, graphe);
 
         //Initialisation du DSAT
         DSAT = new LinkedHashMap<Sommet, Integer>();
@@ -73,17 +72,11 @@ public class Dsatur {
                     if(arc.getOrigine().equals(y)){
                         if(DSAT.containsKey(arc.getDestination())){
                             DSAT.replace(arc.getDestination(),couleursDiff(arc.getDestination()).size());
-                        }
-                    }
-                    else if(arc.getDestination().equals(y)){
-                        if(DSAT.containsKey(arc.getOrigine())){
-                            DSAT.replace(arc.getOrigine(),couleursDiff(arc.getOrigine()).size());
-                        }
+                        } //non oriente donc on peut regarder que l'un des 2 arcs
                     }
                 }
             }
-            ArrayList<String> couleursVois = couleursDiff(y);
-            String petiteCouleur = plusPetiteCouleur(couleursVois,couleurs);
+            String petiteCouleur = plusPetiteCouleur(couleursDiff(y),couleurs);
             y.setCouleur(petiteCouleur);
             if(!couleursUtil.contains(petiteCouleur))
                 couleursUtil.add(petiteCouleur);
@@ -99,8 +92,8 @@ public class Dsatur {
     }
 
 
-    public ArrayList<String> couleursDiff(Sommet s){
-        ArrayList<String> couleurs = new ArrayList<>();
+    public LinkedList<String> couleursDiff(Sommet s){
+        LinkedList<String> couleurs = new LinkedList<>();
 
         for (Map.Entry<Sommet,LinkedList<Arc>> e : graphe.getL().entrySet()){
             if(e.getKey().equals(s))

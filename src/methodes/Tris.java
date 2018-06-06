@@ -11,7 +11,7 @@ public class Tris {
 
     public static void triCroissant(LinkedHashMap<Sommet,LinkedList<Arc>> map) {
         // Ajout des entrées de la map à une liste
-        final List<Map.Entry<Sommet, LinkedList<Arc>>> entries = new ArrayList<>(map.entrySet());
+        final List<Map.Entry<Sommet, LinkedList<Arc>>> entries = new LinkedList<>(map.entrySet());
 
         // Tri de la liste sur la valeur de l'entrée
         entries.sort(new Comparator<Map.Entry<Sommet, LinkedList<Arc>>>() {
@@ -26,7 +26,7 @@ public class Tris {
 
     public static void triDecroissant(LinkedHashMap<Sommet,LinkedList<Arc>> map) {
         // Ajout des entrées de la map à une liste
-        final List<Map.Entry<Sommet, LinkedList<Arc>>> entries = new ArrayList<>(map.entrySet());
+        final List<Map.Entry<Sommet, LinkedList<Arc>>> entries = new LinkedList<>(map.entrySet());
 
         // Tri de la liste sur la valeur de l'entrée
         entries.sort(new Comparator<Map.Entry<Sommet, LinkedList<Arc>>>() {
@@ -38,6 +38,21 @@ public class Tris {
         });
 
         fillMap(map, entries);
+    }
+
+    public static void triAleatoire(LinkedHashMap<Sommet,LinkedList<Arc>> map) {
+        LinkedHashMap<Sommet,LinkedList<Arc>> temp = new LinkedHashMap<>();
+        LinkedList<Sommet> amelanger= new LinkedList<>();
+        for (HashMap.Entry<Sommet,  LinkedList<Arc>> entry : map.entrySet())
+        {
+            amelanger.add(entry.getKey());
+        }
+        LinkedList<Sommet> melangee = melanger(amelanger);
+        for (int i = 0; i < melangee.size() ; i++) {
+            temp.put(melangee.get(i),map.get(melangee.get(i)));
+        }
+        final List<Map.Entry<Sommet, LinkedList<Arc>>> entriesmap = new LinkedList<>(temp.entrySet());
+        fillMap(map,entriesmap);
     }
 
     private static void fillMap(LinkedHashMap<Sommet, LinkedList<Arc>> map, List<Map.Entry<Sommet, LinkedList<Arc>>> entries) {
@@ -67,17 +82,17 @@ public class Tris {
                 listeOrdo = listeOrdonee(graphe);
                 break;
             default :
+                Tris.triAleatoire((graphe.getL()));
                 listeOrdo = listeOrdonee(graphe);
-                Random r = new Random();
-                listeOrdo.sort(new Comparator<Sommet>() {
-                    @Override
-                    public int compare(Sommet o1, Sommet o2) {
-                        return r.nextInt(3)-1;
-                    }
-                });
                 break;
         }
         return listeOrdo;
     }
 
+    public static LinkedList<Sommet> melanger(LinkedList<Sommet> listeDepart){
+
+        LinkedList<Sommet> nouvelle = new LinkedList<>(listeDepart);
+        Collections.shuffle(nouvelle);
+        return nouvelle;
+    }
 }

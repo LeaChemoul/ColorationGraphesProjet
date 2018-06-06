@@ -25,6 +25,7 @@ public class WelshPowell {
         int indexCouleur = 1;
         int k;
 
+        //Initialisation
         for (Sommet aListeOrdo : listeOrdo) {
             aListeOrdo.setCoul(-1);
             aListeOrdo.setCouleur("white");
@@ -38,18 +39,15 @@ public class WelshPowell {
             listeOrdo.remove(0);
             k = 0;
 
-            ArrayList<Sommet> listeOrdoCopie = new ArrayList<>(listeOrdo) ;
+            LinkedList<Sommet> listeOrdoCopie = new LinkedList<>(listeOrdo) ;
             while(k < listeOrdoCopie.size()){
                 Sommet y = listeOrdoCopie.get(k);
                 boolean memeCouleur = false;
 
                 //Si y est adjacent à un sommet de couleur : couleur
-                // i.e si y est l'orgine ou la destination d'un arc ou son voisin est de la même couleur que couleur
                 for (LinkedList<Arc> arcs: graphe.getL().values()) {
                     for (Arc arc: arcs){
                         if(arc.getOrigine().equals(y) && arc.getDestination().getCouleur().equals(couleur.getC()))
-                            memeCouleur = true;
-                        else if(arc.getDestination().equals(y) && arc.getOrigine().getCouleur().equals(couleur.getC()))
                             memeCouleur = true;
                     }
                 }
@@ -62,7 +60,7 @@ public class WelshPowell {
             }
             indexCouleur++;
         }
-        graphe.setNbrChromatique(indexCouleur-1); //-1 car on a incrementé une fosi de trop a la fin de la boucle xhile
+        graphe.setNbrChromatique(indexCouleur-1); //-1 car on a incrementé une fois de trop a la fin de la boucle xhile
         System.out.println("Coloration valide WP : " + graphe.colorationValide());
         //System.out.println(this.toString()); //pour afficher les couleurs assignées
     }

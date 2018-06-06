@@ -85,7 +85,7 @@ class GrapheListeTest {
 
     @Test
     void testDeFichier() {
-        String name = "queen5_5";
+        String name = "connexe";
         String path = "files/"+ name + ".txt";
         String returnPath;
 
@@ -105,6 +105,8 @@ class GrapheListeTest {
             grapheListe.generateFile(returnPath);
             System.out.println("\n");
 
+            grapheListe = grapheListe.deFichier(path);
+            welshPowell = new WelshPowell(grapheListe);
             debut = System.nanoTime();
             welshPowell.algorithme(2);
             System.out.println("Temps d'execution welshpowell croissant : " + (System.nanoTime() - debut)/1000 + " microsec");
@@ -113,7 +115,8 @@ class GrapheListeTest {
             grapheListe.generateFile(returnPath);
             System.out.println("\n");
 
-
+            grapheListe = grapheListe.deFichier(path);
+            welshPowell = new WelshPowell(grapheListe);
             debut = System.nanoTime();
             welshPowell.algorithme(3);
             System.out.println("Temps d'execution welshpowell aleatoire : " + (System.nanoTime() - debut)/1000 + " microsec");
@@ -126,6 +129,7 @@ class GrapheListeTest {
 
 
             //GREEDY
+            grapheListe = grapheListe.deFichier(path);
             greedy = new Greedy(grapheListe);
             //Temps d'execution
             //----------
@@ -137,7 +141,7 @@ class GrapheListeTest {
             grapheListe.generateFile(returnPath);
             System.out.println("\n");
 
-
+            grapheListe = grapheListe.deFichier(path);
             greedy = new Greedy(grapheListe);
             debut = System.nanoTime();
             greedy.algorithme(2);
@@ -160,6 +164,7 @@ class GrapheListeTest {
             //----------
 
             //DSATUR
+            grapheListe = grapheListe.deFichier(path);
             dsatur = new Dsatur(grapheListe);
             //Temps d'execution
             //----------
@@ -173,7 +178,7 @@ class GrapheListeTest {
             //----------
 
             //Génération des images : ne pas decommenter
-            /*try
+            try
             {
                 Runtime rtime = Runtime.getRuntime();
                 Process child = rtime.exec("dot -Tpng graph/graph_gr_croiss.dot -o graph/" + name + "_gr_croiss.png");
@@ -186,7 +191,7 @@ class GrapheListeTest {
 
             } catch (IOException e) {
                 e.printStackTrace();
-            }*/
+            }
 
         }catch(NullPointerException e){
             System.out.println("Votre fichier est vide");

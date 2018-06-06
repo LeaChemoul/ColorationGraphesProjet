@@ -33,15 +33,13 @@ public class Greedy {
 
         do {
             Sommet x = listeOrdo.get(0);
-            ArrayList<String> couleursVoisins = new ArrayList<>();
+            LinkedList<String> couleursVoisins = new LinkedList<>();
 
             //On cherche la couleur de tous les sommets adjacents
             for (LinkedList<Arc> arcs: graphe.getL().values()) {
                 for (Arc arc: arcs){
                     if(arc.getOrigine().equals(x) && !arc.getDestination().getCouleur().equals("white"))
                         couleursVoisins.add(arc.getDestination().getCouleur());
-                    else if(arc.getDestination().equals(x) && !arc.getOrigine().getCouleur().equals("white"))
-                        couleursVoisins.add(arc.getOrigine().getCouleur());
                 }
             }
             String petiteCouleur = plusPetiteCouleur(couleursVoisins,couleurs);
@@ -59,7 +57,7 @@ public class Greedy {
     }
 
 
-    private String plusPetiteCouleur(ArrayList<String> couleursVoisins, Couleur[] couleurs) throws NullPointerException{
+    private String plusPetiteCouleur(LinkedList<String> couleursVoisins, Couleur[] couleurs) throws NullPointerException{
         for (Couleur couleur : couleurs) {
             if (!couleursVoisins.contains(couleur.getC()))
                 return couleur.getC();
