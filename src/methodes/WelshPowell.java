@@ -18,14 +18,18 @@ public class WelshPowell {
         return graphe;
     }
 
-
-
     //tri : 1 pour décroissant, 2 pour croissant, 3 pour aléatoire
     public void algorithme(int tri){
         LinkedList<Sommet> listeOrdo;
         listeOrdo = Tris.trier(tri, graphe);
         int indexCouleur = 1;
         int k;
+
+        for (Sommet aListeOrdo : listeOrdo) {
+            aListeOrdo.setCoul(-1);
+            aListeOrdo.setCouleur("white");
+        }
+
         while(!listeOrdo.isEmpty()){
             Couleur couleur = Couleur.values()[indexCouleur];
             Sommet x = listeOrdo.get(0);
@@ -60,7 +64,7 @@ public class WelshPowell {
         }
         graphe.setNbrChromatique(indexCouleur-1); //-1 car on a incrementé une fosi de trop a la fin de la boucle xhile
         System.out.println("Coloration valide WP : " + graphe.colorationValide());
-        System.out.println(this.toString());
+        //System.out.println(this.toString()); //pour afficher les couleurs assignées
     }
 
     @Override

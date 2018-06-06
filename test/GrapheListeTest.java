@@ -1,5 +1,3 @@
-package test;
-
 import methodes.Dsatur;
 import methodes.Greedy;
 import methodes.Tris;
@@ -50,10 +48,10 @@ class GrapheListeTest {
         grapheListe.ajouterArc(c,a,0);
 
 
-        greedy = new Greedy(grapheListe);
+        /*greedy = new Greedy(grapheListe);
         greedy.algorithme(3);
         grapheListe.generateFile("graph/test.dot");
-        System.out.println("\n");
+        System.out.println("\n");*/
 
         /*try
         {
@@ -66,7 +64,7 @@ class GrapheListeTest {
 
 
         //CONTRE EXEMPLE WP
-        try {
+        /*try {
             grapheListe = grapheListe.deFichier("files/contre_exempleWP.txt");
             welshPowell = new WelshPowell(grapheListe);
             welshPowell.algorithme(3);
@@ -76,11 +74,11 @@ class GrapheListeTest {
             //greedy.algorithme(3);
             grapheListe.generateFile("graph/contre_exemple.dot");
 
-            /*Runtime rtime = Runtime.getRuntime();
-            Process child = rtime.exec("dot -Tpng graph/contre_exemple.dot -o graph/contre_exemple.png");*/
+            //Runtime rtime = Runtime.getRuntime();
+            //Process child = rtime.exec("dot -Tpng graph/contre_exemple.dot -o graph/contre_exemple.png");
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
 
     }

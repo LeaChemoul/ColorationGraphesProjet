@@ -30,7 +30,7 @@ public class Dsatur {
     public Sommet maxDsat(LinkedHashMap<Sommet, Integer> DSAT, LinkedList<Sommet> sommets){
         int maxValue= 0;
 
-        Sommet max = sommets.get(0); //valeur du premier ?
+        Sommet max = sommets.get(0);
 
         for (Map.Entry<Sommet,Integer> e : DSAT.entrySet()){
             if(e.getValue()> maxValue){
@@ -47,7 +47,7 @@ public class Dsatur {
     }
 
     public void algorithme(){
-        ArrayList<String> couleursUtil = new ArrayList<>();
+        LinkedList<String> couleursUtil = new LinkedList<>();
         //Tri décroissant
         LinkedList<Sommet> listeOrdo = Tris.trier(1, graphe);
 
@@ -62,6 +62,7 @@ public class Dsatur {
             aListeOrdo.setCouleur("white");
         }
 
+        //Couleurs disponibles
         Couleur[] couleurs = Couleur.values();
 
         do {
@@ -71,39 +72,30 @@ public class Dsatur {
                 for (Arc arc: arcs){
                     if(arc.getOrigine().equals(y)){
                         if(DSAT.containsKey(arc.getDestination())){
-                            if(!arc.getDestination().getCouleursVoisins().contains(y.getCouleur())){
-                                arc.getDestination().getCouleursVoisins().add(y.getCouleur());
-                                DSAT.replace(arc.getDestination(),arc.getDestination().getCouleursVoisins().size());
-                            }
+                            DSAT.replace(arc.getDestination(),couleursDiff(arc.getDestination()).size());
                         }
-
-                        if(!y.getCouleursVoisins().contains(arc.getDestination().getCouleur()))
-                            y.getCouleursVoisins().add(arc.getDestination().getCouleur());
                     }
                     else if(arc.getDestination().equals(y)){
                         if(DSAT.containsKey(arc.getOrigine())){
-                            if(!arc.getOrigine().getCouleursVoisins().contains(y.getCouleur())){
-                                arc.getOrigine().getCouleursVoisins().add(y.getCouleur());
-                                DSAT.put(arc.getOrigine(),arc.getOrigine().getCouleursVoisins().size());
-                            }
+                            DSAT.replace(arc.getOrigine(),couleursDiff(arc.getOrigine()).size());
                         }
-                        if(!y.getCouleursVoisins().contains(arc.getOrigine().getCouleur()))
-                            y.getCouleursVoisins().add(arc.getOrigine().getCouleur());
                     }
                 }
             }
-            String petiteCouleur = plusPetiteCouleur(y.getCouleursVoisins(),couleurs);
+            ArrayList<String> couleursVois = couleursDiff(y);
+            String petiteCouleur = plusPetiteCouleur(couleursVois,couleurs);
             y.setCouleur(petiteCouleur);
-
             if(!couleursUtil.contains(petiteCouleur))
                 couleursUtil.add(petiteCouleur);
+            y.setCoul(couleursUtil.indexOf(petiteCouleur));
 
             DSAT.remove(y);
+            listeOrdo.remove(y);
         }while(!DSAT.isEmpty());
 
         graphe.setNbrChromatique(couleursUtil.size());
         System.out.println("Coloration valide dsatur : " + graphe.colorationValide());
-
+        //System.out.println(this.toString()); //pour afficher les couleurs assignées
     }
 
 
@@ -120,6 +112,13 @@ public class Dsatur {
         }
 
         return couleurs;
+    }
+
+    @Override
+    public String toString() {
+        return "Dsatur{" +
+                "graphe=" + graphe.toStringConsole() +
+                '}';
     }
 
 }

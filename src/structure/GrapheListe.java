@@ -76,6 +76,15 @@ public class GrapheListe extends Graphe {
         L.get(s).addLast(new Arc(s, t, val));
     }
 
+    public void ajouterArrete(Sommet s, Sommet t, int val) {
+        if(!existeSommet(s))
+            ajouterSommet(s);
+        if(!existeSommet(t))
+            ajouterSommet(t);
+        L.get(s).addLast(new Arc(s, t, val));
+        L.get(t).addLast(new Arc(t, s, val));
+    }
+
     @Override
     public int valeurArc(Sommet s, Sommet t) {
         for (Arc a : L.get(s))
@@ -257,7 +266,7 @@ public class GrapheListe extends Graphe {
                 Sommet s = grapheListe.findSommet(uneArete[0]);
                 Sommet t = grapheListe.findSommet(uneArete[1]);
                 if(!grapheListe.existeArcNonOriente(s, t))
-                    grapheListe.ajouterArc(s,t, 0);
+                    grapheListe.ajouterArrete(s,t, 0);
             } else if(arc){
                 String[] uneArete = line.toLowerCase().split(" ");
                 Sommet s = grapheListe.findSommet(uneArete[0]);
@@ -320,19 +329,37 @@ public class GrapheListe extends Graphe {
         String lien = (this.oriente)? " -> ":" -- ";
         String debut = (this.oriente)? "digraph G {\n":"graph G {\n";
         StringBuilder chaine = new StringBuilder(debut);
+        ArrayList<Arc> parcourus = new ArrayList<>();
         for (Sommet sommet : this.sommets) {
             chaine.append(sommet.getNom()).append(" [shape=circle, style=filled, color= ")
                     .append(sommet.getCouleur())
                     .append("];\n");
             for (Arc arc :
                     L.get(sommet)) {
-                chaine.append(arc.getOrigine().getNom()).append(lien)
-                        .append(arc.getDestination().getNom())
-                        .append(";\n");
+                if(!containsNonOriente(arc,parcourus)){
+                    chaine.append(arc.getOrigine().getNom()).append(lien)
+                            .append(arc.getDestination().getNom())
+                            .append(";\n");
+                    parcourus.add(arc);
+                }
             }
         }
         chaine.append("}");
         return chaine.toString();
+    }
+
+    public boolean containsNonOriente(Arc arc, ArrayList<Arc> arcs){
+        for(Arc unArc : arcs){
+            if(compareNonOriente(arc,unArc))
+                return true;
+        }
+        return false;
+    }
+
+    public boolean compareNonOriente(Arc arc1, Arc arc2){
+        if(arc1.getOrigine() == arc2.getOrigine() && arc1.getDestination() == arc2.getDestination())
+            return true;
+        else return arc1.getOrigine() == arc2.getDestination() && arc1.getDestination() == arc2.getOrigine();
     }
 
     public String toStringConsole(){

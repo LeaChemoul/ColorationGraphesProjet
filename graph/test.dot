@@ -4,7 +4,5 @@ a -- c;
 b [shape=circle, style=filled, color= crimson];
 c [shape=circle, style=filled, color= cyan4];
 c -- d;
-c -- a;
 d [shape=circle, style=filled, color= crimson];
-d -- c;
 }

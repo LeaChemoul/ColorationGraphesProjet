@@ -17,7 +17,7 @@ public class Tris {
         entries.sort(new Comparator<Map.Entry<Sommet, LinkedList<Arc>>>() {
             @Override
             public int compare(final Map.Entry<Sommet, LinkedList<Arc>> e1, final Map.Entry<Sommet, LinkedList<Arc>> e2) {
-                return -Integer.compare(e1.getValue().size(), e2.getValue().size());
+                return Integer.compare(e1.getValue().size(), e2.getValue().size());
             }
         });
 
@@ -33,7 +33,7 @@ public class Tris {
             @Override
             public int compare(final Map.Entry<Sommet, LinkedList<Arc>> e1, final Map.Entry<Sommet, LinkedList<Arc>> e2) {
 
-                return Integer.compare(e1.getValue().size(), e2.getValue().size());
+                return -Integer.compare(e1.getValue().size(), e2.getValue().size());
             }
         });
 

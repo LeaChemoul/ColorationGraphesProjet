@@ -49,14 +49,13 @@ public class Greedy {
             if(!couleursUtil.contains(petiteCouleur))
                 couleursUtil.add(petiteCouleur);
             listeOrdo.remove(0);
-            x.setCoul(couleursUtil.size());
+            x.setCoul(couleursUtil.indexOf(petiteCouleur));
         }while(!listeOrdo.isEmpty());
 
 
         graphe.setNbrChromatique(couleursUtil.size());
         System.out.println("Coloration valide greeedy : " + graphe.colorationValide());
-        System.out.println(this.toString());
-
+        //System.out.println(this.toString()); //pour afficher les couleurs assignées
     }
 
 
