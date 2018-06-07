@@ -15,10 +15,6 @@ public class Greedy {
         this.graphe = graphe;
     }
 
-    public GrapheListe getGraphe() {
-        return graphe;
-    }
-
     //tri : 1 pour décroissant, 2 pour croissant, 3 pour aléatoire
     public void algorithme(int tri){
         LinkedList<String> couleursUtil = new LinkedList<>();

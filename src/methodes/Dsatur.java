@@ -8,17 +8,12 @@ import java.util.*;
 
 public class Dsatur {
     private GrapheListe graphe;
-    private LinkedHashMap<Sommet, Integer>  DSAT;
 
     public Dsatur(GrapheListe graphe) {
         this.graphe = graphe;
     }
 
-    public GrapheListe getGraphe() {
-        return graphe;
-    }
-
-    public String plusPetiteCouleur(LinkedList<String> couleursVoisins,Couleur[] couleurs ) throws NullPointerException{
+    private String plusPetiteCouleur(LinkedList<String> couleursVoisins, Couleur[] couleurs) throws NullPointerException{
         for (Couleur couleur : couleurs) {
             if (!couleursVoisins.contains(couleur.getC()))
                 return couleur.getC();
@@ -48,12 +43,12 @@ public class Dsatur {
     public void algorithme(){
         LinkedList<String> couleursUtil = new LinkedList<>();
         //Tri décroissant
-        LinkedList<Sommet> listeOrdo = Tris.trier(3, graphe);
+        LinkedList<Sommet> listeOrdo = Tris.trier(4, graphe); //tri décroissant
 
         //Initialisation du DSAT
-        DSAT = new LinkedHashMap<Sommet, Integer>();
-        for(int i =0;i<listeOrdo.size();i++){
-            DSAT.put(listeOrdo.get(i),0);
+        LinkedHashMap<Sommet, Integer> DSAT = new LinkedHashMap<>();
+        for (Sommet anElement : listeOrdo) {
+            DSAT.put(anElement, 0);
         }
 
         for (Sommet aListeOrdo : listeOrdo) {
@@ -76,6 +71,8 @@ public class Dsatur {
                     }
                 }
             }
+
+            //Mise à jour de la couleur
             String petiteCouleur = plusPetiteCouleur(couleursDiff(y),couleurs);
             y.setCouleur(petiteCouleur);
             if(!couleursUtil.contains(petiteCouleur))
@@ -92,7 +89,7 @@ public class Dsatur {
     }
 
 
-    public LinkedList<String> couleursDiff(Sommet s){
+    private LinkedList<String> couleursDiff(Sommet s){
         LinkedList<String> couleurs = new LinkedList<>();
 
         for (Map.Entry<Sommet,LinkedList<Arc>> e : graphe.getL().entrySet()){
@@ -103,7 +100,6 @@ public class Dsatur {
                         couleurs.add(coul);
                 }
         }
-
         return couleurs;
     }
 

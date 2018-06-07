@@ -45,17 +45,24 @@ public class GrapheListe extends Graphe {
     }
 
     public boolean existeArcNonOriente(Sommet s, Sommet t) {
-        if(L.get(s) != null)
-            for (Arc a : L.get(s)){
-                if ((a.getDestination()).equals(t))
-                    return true;
-            }
-        if(L.get(t) != null)
-            for (Arc a : L.get(t)){
-                if ((a.getDestination()).equals(s))
-                    return true;
-            }
-        return false;
+
+        if(L != null){
+            if(L.get(s) != null)
+                for (Arc a : L.get(s)){
+                    if ((a.getDestination()).equals(t))
+                        return true;
+                }
+            if(L.get(t) != null)
+                for (Arc a : L.get(t)){
+                    if ((a.getDestination()).equals(s))
+                        return true;
+                }
+                return false;
+
+        }else{
+            return false;
+        }
+
     }
 
     @Override
@@ -76,6 +83,7 @@ public class GrapheListe extends Graphe {
         L.get(s).addLast(new Arc(s, t, val));
     }
 
+    @Override
     public void ajouterArrete(Sommet s, Sommet t, int val) {
         if(!existeSommet(s))
             ajouterSommet(s);
@@ -118,7 +126,7 @@ public class GrapheListe extends Graphe {
         return L.get(s);
     }
 
-    public Sommet findSommet(String nom){
+    private Sommet findSommet(String nom){
         for (Sommet sommet : this.sommets) {
             if (sommet.getNom().equals(nom))
                 return sommet;
@@ -144,74 +152,6 @@ public class GrapheListe extends Graphe {
 
         }
         return true;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public void setNbSommets(int nbSommets) {
-        this.nbSommets = nbSommets;
-    }
-
-    public void setNbValSommets(int nbValSommets) {
-        this.nbValSommets = nbValSommets;
-    }
-
-    public void setNbArcs(int nbArcs) {
-        this.nbArcs = nbArcs;
-    }
-
-    public void setNbValArc(int nbValArc) {
-        this.nbValArc = nbValArc;
-    }
-
-    public void setSommets(LinkedList<Sommet> sommets) {
-        this.sommets = sommets;
-    }
-
-    public void setNbrChromatique(int nbrChromatique) {
-        this.nbrChromatique = nbrChromatique;
-    }
-
-    public void setL(LinkedHashMap<Sommet, LinkedList<Arc>> l) {
-        L = l;
-    }
-
-    public int getNbrChromatique() {
-        return nbrChromatique;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public int getNbSommets() {
-        return nbSommets;
-    }
-
-    public int getNbValSommets() {
-        return nbValSommets;
-    }
-
-    public int getNbArcs() {
-        return nbArcs;
-    }
-
-    public int getNbValArc() {
-        return nbValArc;
-    }
-
-    public boolean isOriente() {
-        return oriente;
-    }
-
-    public LinkedList<Sommet> getSommets() {
-        return sommets;
-    }
-
-    public LinkedHashMap<Sommet, LinkedList<Arc>> getL() {
-        return L;
     }
 
     public GrapheListe deFichier(String path) throws IOException {
@@ -265,14 +205,24 @@ public class GrapheListe extends Graphe {
                 String[] uneArete = line.toLowerCase().split(" ");
                 Sommet s = grapheListe.findSommet(uneArete[0]);
                 Sommet t = grapheListe.findSommet(uneArete[1]);
-                if(!grapheListe.existeArcNonOriente(s, t))
+                if(s == null)
+                    grapheListe.ajouterSommet(new Sommet(uneArete[0],0 , "white", 0));
+                if(t == null)
+                    grapheListe.ajouterSommet(new Sommet(uneArete[1],0 , "white", 0));
+                if(!grapheListe.existeArcNonOriente(s, t)){
                     grapheListe.ajouterArrete(s,t, 0);
+                }
             } else if(arc){
                 String[] uneArete = line.toLowerCase().split(" ");
                 Sommet s = grapheListe.findSommet(uneArete[0]);
                 Sommet t = grapheListe.findSommet(uneArete[1]);
-                if(!grapheListe.existeArcOriente(s, t))
+                if(s == null)
+                    grapheListe.ajouterSommet(new Sommet(uneArete[0],0 , "white", 0));
+                if(t == null)
+                    grapheListe.ajouterSommet(new Sommet(uneArete[1],0 , "white", 0));
+                if(!grapheListe.existeArcOriente(s, t)){
                     grapheListe.ajouterArc(s,t, 0);
+                }
             }
         }
         return grapheListe;
@@ -281,33 +231,13 @@ public class GrapheListe extends Graphe {
     private static @NotNull
     String lireContenu(String path) throws IOException{
         StringBuilder content = new StringBuilder();
-        FileReader fr = null;
-        BufferedReader br = null;
 
-        try {
-            fr = new FileReader(path);
-            br = new BufferedReader(fr);
+        try (FileReader fr = new FileReader(path); BufferedReader br = new BufferedReader(fr)) {
 
             String line;
             while ((line = br.readLine()) != null)
                 content.append(line)
                         .append("\n");
-        } catch (IOException ex) {
-            throw ex;
-        } finally {
-            try {
-                if (br != null)
-                    br.close();
-            } catch (IOException ex) {
-                throw ex;
-            }
-
-            try {
-                if (fr != null)
-                    fr.close();
-            } catch (IOException ex) {
-                throw ex;
-            }
         }
 
         return content.toString();
@@ -409,5 +339,46 @@ public class GrapheListe extends Graphe {
         }
 
         return !problem;
+    }
+
+    //GETTERS SETTERS
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public void setNbSommets(int nbSommets) {
+        this.nbSommets = nbSommets;
+    }
+
+    public void setSommets(LinkedList<Sommet> sommets) {
+        this.sommets = sommets;
+    }
+
+    public void setNbrChromatique(int nbrChromatique) {
+        this.nbrChromatique = nbrChromatique;
+    }
+
+    public void setL(LinkedHashMap<Sommet, LinkedList<Arc>> l) {
+        L = l;
+    }
+
+    public int getNbrChromatique() {
+        return nbrChromatique;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public boolean isOriente() {
+        return oriente;
+    }
+
+    public LinkedList<Sommet> getSommets() {
+        return sommets;
+    }
+
+    public LinkedHashMap<Sommet, LinkedList<Arc>> getL() {
+        return L;
     }
 }

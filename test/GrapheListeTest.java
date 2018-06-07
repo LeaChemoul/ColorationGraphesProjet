@@ -34,58 +34,16 @@ class GrapheListeTest {
         grapheListe.ajouterSommet(b);
         grapheListe.ajouterSommet(c);
         grapheListe.ajouterSommet(d);
-
-        /*grapheListe.ajouterArc(a,b,0);
-        grapheListe.ajouterArc(a,c,0);
-        grapheListe.ajouterArc(a,d,0);
-        grapheListe.ajouterArc(b,a,0);
-        grapheListe.ajouterArc(b,d,0);
-        grapheListe.ajouterArc(c,b,0);*/
-
         grapheListe.ajouterArc(c,d,0);
         grapheListe.ajouterArc(d,c,0);
         grapheListe.ajouterArc(a,c,0);
         grapheListe.ajouterArc(c,a,0);
 
-
-        /*greedy = new Greedy(grapheListe);
-        greedy.algorithme(3);
-        grapheListe.generateFile("graph/test.dot");
-        System.out.println("\n");*/
-
-        /*try
-        {
-            Runtime rtime = Runtime.getRuntime();
-            Process child = rtime.exec("dot -Tpng graph/test.dot -o graph/test.png");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-
-
-        //CONTRE EXEMPLE WP
-        /*try {
-            grapheListe = grapheListe.deFichier("files/contre_exempleWP.txt");
-            welshPowell = new WelshPowell(grapheListe);
-            welshPowell.algorithme(3);
-            System.out.println("\n");
-
-            //greedy = new Greedy(grapheListe);
-            //greedy.algorithme(3);
-            grapheListe.generateFile("graph/contre_exemple.dot");
-
-            //Runtime rtime = Runtime.getRuntime();
-            //Process child = rtime.exec("dot -Tpng graph/contre_exemple.dot -o graph/contre_exemple.png");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-
-
     }
 
     @Test
     void testDeFichier() {
-        String name = "connexe";
+        String name = "queen13_13";
         String path = "files/"+ name + ".txt";
         String returnPath;
 
@@ -105,8 +63,6 @@ class GrapheListeTest {
             grapheListe.generateFile(returnPath);
             System.out.println("\n");
 
-            grapheListe = grapheListe.deFichier(path);
-            welshPowell = new WelshPowell(grapheListe);
             debut = System.nanoTime();
             welshPowell.algorithme(2);
             System.out.println("Temps d'execution welshpowell croissant : " + (System.nanoTime() - debut)/1000 + " microsec");
@@ -115,8 +71,6 @@ class GrapheListeTest {
             grapheListe.generateFile(returnPath);
             System.out.println("\n");
 
-            grapheListe = grapheListe.deFichier(path);
-            welshPowell = new WelshPowell(grapheListe);
             debut = System.nanoTime();
             welshPowell.algorithme(3);
             System.out.println("Temps d'execution welshpowell aleatoire : " + (System.nanoTime() - debut)/1000 + " microsec");
@@ -126,10 +80,7 @@ class GrapheListeTest {
             System.out.println("\n");
 
             //----------
-
-
             //GREEDY
-            grapheListe = grapheListe.deFichier(path);
             greedy = new Greedy(grapheListe);
             //Temps d'execution
             //----------
@@ -141,8 +92,6 @@ class GrapheListeTest {
             grapheListe.generateFile(returnPath);
             System.out.println("\n");
 
-            grapheListe = grapheListe.deFichier(path);
-            greedy = new Greedy(grapheListe);
             debut = System.nanoTime();
             greedy.algorithme(2);
             System.out.println("Temps d'execution greedy croissant : " + (System.nanoTime() - debut)/1000 + " microsec");
@@ -153,8 +102,6 @@ class GrapheListeTest {
 
 
             debut = System.nanoTime();
-            grapheListe = grapheListe.deFichier(path);
-            greedy = new Greedy(grapheListe);
             greedy.algorithme(3);
             System.out.println("Temps d'execution greedy aléatoire : " + (System.nanoTime() - debut)/1000 + " microsec");
             System.out.println("Nbr chromatique :" + grapheListe.getNbrChromatique());
@@ -164,7 +111,6 @@ class GrapheListeTest {
             //----------
 
             //DSATUR
-            grapheListe = grapheListe.deFichier(path);
             dsatur = new Dsatur(grapheListe);
             //Temps d'execution
             //----------
@@ -178,7 +124,7 @@ class GrapheListeTest {
             //----------
 
             //Génération des images : ne pas decommenter
-            try
+            /*try
             {
                 Runtime rtime = Runtime.getRuntime();
                 Process child = rtime.exec("dot -Tpng graph/graph_gr_croiss.dot -o graph/" + name + "_gr_croiss.png");
@@ -191,13 +137,12 @@ class GrapheListeTest {
 
             } catch (IOException e) {
                 e.printStackTrace();
-            }
+            }*/
 
         }catch(NullPointerException e){
             System.out.println("Votre fichier est vide");
         }catch (IOException e){
-            System.out.println("Erreur d'ouverture de fichier");
-            e.printStackTrace();
+            System.out.println("Erreur d'ouverture de fichier. Fichier introuvable.");
         }
     }
 }
