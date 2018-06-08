@@ -57,7 +57,7 @@ public class WelshPowell {
             indexCouleur++;
         }
         graphe.setNbrChromatique(indexCouleur-1); //-1 car on a incrementé une fois de trop a la fin de la boucle xhile
-        System.out.println("Coloration valide WP : " + graphe.colorationValide());
+        //System.out.println("Coloration valide WP : " + graphe.colorationValide());
         //System.out.println(this.toString()); //pour afficher les couleurs assignées
     }
 

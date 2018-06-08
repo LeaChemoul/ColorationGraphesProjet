@@ -43,7 +43,7 @@ class GrapheListeTest {
 
     @Test
     void testDeFichier() {
-        String name = "queen13_13";
+        String name = "queen5_5";
         String path = "files/"+ name + ".txt";
         String returnPath;
 
@@ -71,12 +71,14 @@ class GrapheListeTest {
             grapheListe.generateFile(returnPath);
             System.out.println("\n");
 
-            debut = System.nanoTime();
-            welshPowell.algorithme(3);
-            System.out.println("Temps d'execution welshpowell aleatoire : " + (System.nanoTime() - debut)/1000 + " microsec");
-            System.out.println("Nbr chromatique :" + grapheListe.getNbrChromatique());
-            returnPath = "graph/graph_wp_aleat.dot";
-            grapheListe.generateFile(returnPath);
+            float res = 0;
+            for(int i = 0; i < 20 ; i++){
+                welshPowell.algorithme(3);
+                res += grapheListe.getNbrChromatique();
+            }
+            float moy = res/20;
+            System.out.println("Welshpowell aléatoire :");
+            System.out.println("Nbr chromatique moyen :" + moy);
             System.out.println("\n");
 
             //----------
@@ -101,25 +103,37 @@ class GrapheListeTest {
             System.out.println("\n");
 
 
-            debut = System.nanoTime();
-            greedy.algorithme(3);
-            System.out.println("Temps d'execution greedy aléatoire : " + (System.nanoTime() - debut)/1000 + " microsec");
-            System.out.println("Nbr chromatique :" + grapheListe.getNbrChromatique());
-            returnPath = "graph/graph_gr_aleat.dot";
-            grapheListe.generateFile(returnPath);
+            res = 0;
+            for(int i = 0; i < 20 ; i++){
+                greedy.algorithme(3);
+                res = res + grapheListe.getNbrChromatique();
+            }
+            moy = res/20;
+            System.out.println("Greedy aléatoire :");
+            System.out.println("Nbr chromatique moyen :" + moy);
             System.out.println("\n");
+
             //----------
 
             //DSATUR
             dsatur = new Dsatur(grapheListe);
             //Temps d'execution
             //----------
-            debut = System.nanoTime();
+            /*debut = System.nanoTime();
             dsatur.algorithme();
             System.out.println("Temps d'execution dsatur : " + (System.nanoTime() - debut)/1000 + " microsec");
             System.out.println("Nbr chromatique :" + grapheListe.getNbrChromatique());
             returnPath = "graph/graph_dsatur.dot";
             grapheListe.generateFile(returnPath);
+            System.out.println("\n");*/
+            res = 0;
+            for(int i = 0; i < 20 ; i++){
+                dsatur.algorithme();
+                res = res + grapheListe.getNbrChromatique();
+            }
+            moy = res/20;
+            System.out.println("Dsatur :");
+            System.out.println("Nbr chromatique moyen :" + moy);
             System.out.println("\n");
             //----------
 

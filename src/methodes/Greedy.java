@@ -48,7 +48,7 @@ public class Greedy {
 
 
         graphe.setNbrChromatique(couleursUtil.size());
-        System.out.println("Coloration valide greeedy : " + graphe.colorationValide());
+        //System.out.println("Coloration valide greeedy : " + graphe.colorationValide());
         //System.out.println(this.toString()); //pour afficher les couleurs assignées
     }
 

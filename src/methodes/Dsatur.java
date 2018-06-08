@@ -43,7 +43,7 @@ public class Dsatur {
     public void algorithme(){
         LinkedList<String> couleursUtil = new LinkedList<>();
         //Tri décroissant
-        LinkedList<Sommet> listeOrdo = Tris.trier(4, graphe); //tri décroissant
+        LinkedList<Sommet> listeOrdo = Tris.trier(3, graphe); //tri aléatoire temporaire
 
         //Initialisation du DSAT
         LinkedHashMap<Sommet, Integer> DSAT = new LinkedHashMap<>();
@@ -51,12 +51,13 @@ public class Dsatur {
             DSAT.put(anElement, 0);
         }
 
+        //Initialisation des couleurs
         for (Sommet aListeOrdo : listeOrdo) {
-            aListeOrdo.setCoul(-1);
-            aListeOrdo.setCouleur("white");
+            aListeOrdo.setCoul(-1); //numerotation
+            aListeOrdo.setCouleur("white"); //couleur pour la géneration graphique
         }
 
-        //Couleurs disponibles
+        //Couleurs disponibles en graphique
         Couleur[] couleurs = Couleur.values();
 
         do {
@@ -84,7 +85,7 @@ public class Dsatur {
         }while(!DSAT.isEmpty());
 
         graphe.setNbrChromatique(couleursUtil.size());
-        System.out.println("Coloration valide dsatur : " + graphe.colorationValide());
+        //System.out.println("Coloration valide dsatur : " + graphe.colorationValide());
         //System.out.println(this.toString()); //pour afficher les couleurs assignées
     }
 
