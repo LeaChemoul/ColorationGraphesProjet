@@ -43,7 +43,7 @@ class GrapheListeTest {
 
     @Test
     void testDeFichier() {
-        String name = "application3";
+        String name = "queen5_5";
         String path = "files/"+ name + ".txt";
         String returnPath;
 
@@ -129,20 +129,20 @@ class GrapheListeTest {
             //----------
 
             //Génération des images : ne pas decommenter
-            try
+            /*try
             {
                 Runtime rtime = Runtime.getRuntime();
                 Process child = rtime.exec("dot -Tpng graph/graph_gr_croiss.dot -o graph/" + name + "_gr_croiss.png");
                 Process child2 = rtime.exec("dot -Tpng graph/graph_gr_decroiss.dot -o graph/" + name + "_gr_decroiss.png");
-                Process child3 = rtime.exec("dot -Tpng graph/graph_gr_aleat.dot -o graph/" + name + "_gr_aleat.png");
+                //Process child3 = rtime.exec("dot -Tpng graph/graph_gr_aleat.dot -o graph/" + name + "_gr_aleat.png");
                 Process child4 = rtime.exec("dot -Tpng graph/graph_wp_croiss.dot -o graph/" + name + "_wp_croiss.png");
                 Process child5 = rtime.exec("dot -Tpng graph/graph_wp_decroiss.dot -o graph/" + name + "_wp_decroiss.png");
-                Process child6 = rtime.exec("dot -Tpng graph/graph_wp_aleat.dot -o graph/" + name + "_wp_aleat.png");
+                //Process child6 = rtime.exec("dot -Tpng graph/graph_wp_aleat.dot -o graph/" + name + "_wp_aleat.png");
                 Process child7 = rtime.exec("dot -Tpng graph/graph_dsatur.dot -o graph/" + name + "_dsatur.png");
 
             } catch (IOException e) {
                 e.printStackTrace();
-            }
+            }*/
 
         }catch(NullPointerException e){
             System.out.println("Votre fichier est vide");

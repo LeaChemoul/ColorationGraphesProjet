@@ -1,0 +1,34 @@
+Nom: connexe
+Oriente(non/oui): non
+NbSommets: 6
+NbValSommet: 0
+NbArcs: 5
+NbValArc: 0
+--- Liste des sommets
+0 id0
+1 id1
+2 id2
+3 id3
+4 id4
+5 id5
+6 id6
+--- Liste des aretes
+0 1
+0 3
+1 0
+1 2
+1 5
+2 1
+2 3
+3 0
+3 2
+3 6
+4 5
+4 6
+4 3
+5 1
+5 6
+5 4
+6 5
+6 4
+6 3

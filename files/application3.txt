@@ -1,0 +1,36 @@
+Nom: sudoku
+Oriente(non/oui): non
+NbSommets: 9
+NbValSommet: 0
+NbArcs: 180
+NbValArc: 0
+--- Liste des sommets
+0 id0
+1 id1
+2 id2
+3 id3
+4 id4
+5 id5
+6 id6
+7 id7
+8 id8
+9 id9
+--- Liste des aretes
+0 1
+0 2
+0 3
+0 4
+0 5
+0 6
+0 7
+0 8
+0 9
+1 2
+2 3
+3 4
+4 5
+5 6
+6 7
+7 8
+8 9
+9 1

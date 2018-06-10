@@ -1,0 +1,23 @@
+Nom: triangle
+Oriente(non/oui): non
+NbSommets: 6
+NbValSommet: 0
+NbArcs: 180
+NbValArc: 0
+--- Liste des sommets
+0 id0
+1 id1
+2 id2
+3 id3
+4 id4
+5 id5
+--- Liste des aretes
+0 1
+0 2
+0 3
+1 2
+1 4
+2 5
+3 4
+3 5
+4 5
