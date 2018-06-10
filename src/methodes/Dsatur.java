@@ -22,7 +22,7 @@ public class Dsatur {
     }
 
     private Sommet maxDsat(LinkedHashMap<Sommet, Integer> DSAT, LinkedList<Sommet> sommets){
-        int maxValue= 0;
+        int maxValue= -1;
 
         Sommet max = sommets.get(0);
 
@@ -43,7 +43,7 @@ public class Dsatur {
     public void algorithme(){
         LinkedList<String> couleursUtil = new LinkedList<>();
         //Tri décroissant
-        LinkedList<Sommet> listeOrdo = Tris.trier(3, graphe); //tri aléatoire temporaire
+        LinkedList<Sommet> listeOrdo = Tris.trier(1, graphe); //tri aléatoire temporaire
 
         //Initialisation du DSAT
         LinkedHashMap<Sommet, Integer> DSAT = new LinkedHashMap<>();
@@ -52,9 +52,9 @@ public class Dsatur {
         }
 
         //Initialisation des couleurs
-        for (Sommet aListeOrdo : listeOrdo) {
-            aListeOrdo.setCoul(-1); //numerotation
-            aListeOrdo.setCouleur("white"); //couleur pour la géneration graphique
+        for (Sommet sommet : listeOrdo) {
+            sommet.setCoul(-1); //numerotation
+            sommet.setCouleur("white"); //couleur pour la géneration graphique
         }
 
         //Couleurs disponibles en graphique
@@ -62,6 +62,13 @@ public class Dsatur {
 
         do {
             Sommet y = maxDsat(DSAT, listeOrdo);
+            //Mise à jour de la couleur
+            String petiteCouleur = plusPetiteCouleur(couleursDiff(y),couleurs);
+            y.setCouleur(petiteCouleur);
+            if(!couleursUtil.contains(petiteCouleur))
+                couleursUtil.add(petiteCouleur);
+            y.setCoul(couleursUtil.indexOf(petiteCouleur));
+
             //Mise a jour du dsat
             for (LinkedList<Arc> arcs: graphe.getL().values()) {
                 for (Arc arc: arcs){
@@ -73,12 +80,7 @@ public class Dsatur {
                 }
             }
 
-            //Mise à jour de la couleur
-            String petiteCouleur = plusPetiteCouleur(couleursDiff(y),couleurs);
-            y.setCouleur(petiteCouleur);
-            if(!couleursUtil.contains(petiteCouleur))
-                couleursUtil.add(petiteCouleur);
-            y.setCoul(couleursUtil.indexOf(petiteCouleur));
+
 
             DSAT.remove(y);
             listeOrdo.remove(y);

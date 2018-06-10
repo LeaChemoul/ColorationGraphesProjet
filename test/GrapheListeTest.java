@@ -43,7 +43,7 @@ class GrapheListeTest {
 
     @Test
     void testDeFichier() {
-        String name = "queen5_5";
+        String name = "application3";
         String path = "files/"+ name + ".txt";
         String returnPath;
 
@@ -119,26 +119,17 @@ class GrapheListeTest {
             dsatur = new Dsatur(grapheListe);
             //Temps d'execution
             //----------
-            /*debut = System.nanoTime();
+            debut = System.nanoTime();
             dsatur.algorithme();
             System.out.println("Temps d'execution dsatur : " + (System.nanoTime() - debut)/1000 + " microsec");
             System.out.println("Nbr chromatique :" + grapheListe.getNbrChromatique());
             returnPath = "graph/graph_dsatur.dot";
             grapheListe.generateFile(returnPath);
-            System.out.println("\n");*/
-            res = 0;
-            for(int i = 0; i < 20 ; i++){
-                dsatur.algorithme();
-                res = res + grapheListe.getNbrChromatique();
-            }
-            moy = res/20;
-            System.out.println("Dsatur :");
-            System.out.println("Nbr chromatique moyen :" + moy);
             System.out.println("\n");
             //----------
 
             //Génération des images : ne pas decommenter
-            /*try
+            try
             {
                 Runtime rtime = Runtime.getRuntime();
                 Process child = rtime.exec("dot -Tpng graph/graph_gr_croiss.dot -o graph/" + name + "_gr_croiss.png");
@@ -151,7 +142,7 @@ class GrapheListeTest {
 
             } catch (IOException e) {
                 e.printStackTrace();
-            }*/
+            }
 
         }catch(NullPointerException e){
             System.out.println("Votre fichier est vide");

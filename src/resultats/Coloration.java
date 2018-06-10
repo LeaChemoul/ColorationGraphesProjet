@@ -12,7 +12,7 @@ public class Coloration {
         fenetre.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         fenetre.setVisible(true);
 
-        Icon graphe = new ImageIcon("graph/queen13_13_wp_decroiss.png");
+        Icon graphe = new ImageIcon("graph/queen5_5_wp_decroiss.png");
         JLabel grapheLabel = new JLabel();
         grapheLabel.setIcon(graphe);
 
