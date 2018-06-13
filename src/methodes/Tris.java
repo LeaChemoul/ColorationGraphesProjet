@@ -8,6 +8,11 @@ import java.util.*;
 
 public class Tris {
 
+    /**
+     * Tri croissant des sommets par rapport à leur degré (taille de la liste de leurs liens)
+     * @param map Sommets et leurs arcs.
+     * @return Une liste triée.
+     */
     private static LinkedHashMap<Sommet, LinkedList<Arc>> triCroissant(LinkedHashMap<Sommet, LinkedList<Arc>> map) {
         LinkedHashMap<Sommet,LinkedList<Arc>> res = new LinkedHashMap<>(map);
         // Ajout des entrées de la map à une liste
@@ -25,6 +30,11 @@ public class Tris {
         return res;
     }
 
+    /**
+     * Tri décroissant des sommets par rapport à leur degré (taille de la liste de leurs liens)
+     * @param map Sommets et leurs arcs.
+     * @return Une liste triée.
+     */
     private static LinkedHashMap<Sommet, LinkedList<Arc>> triDecroissant(LinkedHashMap<Sommet, LinkedList<Arc>> map) {
         LinkedHashMap<Sommet,LinkedList<Arc>> res = new LinkedHashMap<>(map);
         // Ajout des entrées de la map à une liste
@@ -43,6 +53,11 @@ public class Tris {
         return res;
     }
 
+    /**
+     * Tri aléatoire des sommets par rapport à leur degré (taille de la liste de leurs liens)
+     * @param map Sommets et leurs arcs.
+     * @return Une liste triée.
+     */
     private static LinkedHashMap<Sommet, LinkedList<Arc>> triAleatoire(LinkedHashMap<Sommet, LinkedList<Arc>> map) {
         LinkedHashMap<Sommet,LinkedList<Arc>> temp = new LinkedHashMap<>();
         LinkedList<Sommet> amelanger= new LinkedList<>();
@@ -72,6 +87,12 @@ public class Tris {
         return liste;
     }
 
+    /**
+     * Tri d'un graphe donné selon le tri choisie.
+     * @param tri 1 pour décroissant, 2 pour croissant, 3 pour aléatoire
+     * @param graphe Graphe à trier.
+     * @return Liste des sommets triés
+     */
     static LinkedList<Sommet> trier(int tri, GrapheListe graphe) {
         LinkedHashMap<Sommet, LinkedList<Arc>> res;
         LinkedList<Sommet> listeOrdo;
@@ -102,7 +123,6 @@ public class Tris {
     }
 
     private static LinkedList<Sommet> melanger(LinkedList<Sommet> listeDepart){
-
         LinkedList<Sommet> nouvelle = new LinkedList<>(listeDepart);
         Collections.shuffle(nouvelle);
         return nouvelle;

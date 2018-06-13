@@ -13,6 +13,13 @@ public class Dsatur {
         this.graphe = graphe;
     }
 
+    /**
+     * Cherche la plus petit couleur disponible pour un sommet.
+     * @param couleursVoisins Couleurs déjà utilisées apr els voisins du sommet.
+     * @param couleurs Couleurs disponibles.
+     * @return String de la couleur
+     * @throws NullPointerException si aucune couleur est disponible
+     */
     private String plusPetiteCouleur(LinkedList<String> couleursVoisins, Couleur[] couleurs) throws NullPointerException{
         for (Couleur couleur : couleurs) {
             if (!couleursVoisins.contains(couleur.getC()))
@@ -21,6 +28,12 @@ public class Dsatur {
         throw new NullPointerException();
     }
 
+    /**
+     * Recherche le sommet de DSAT maximum.
+     * @param DSAT Liste des sommets et de leur DSAT.
+     * @param sommets Sommets du graphe
+     * @return Le sommet choisie.
+     */
     private Sommet maxDsat(LinkedHashMap<Sommet, Integer> DSAT, LinkedList<Sommet> sommets){
         int maxValue= -1;
 
@@ -40,6 +53,9 @@ public class Dsatur {
         return max;
     }
 
+    /**
+     * Algorithme de DSATUR
+     */
     public void algorithme(){
         LinkedList<String> couleursUtil = new LinkedList<>();
         //Tri décroissant
@@ -92,6 +108,11 @@ public class Dsatur {
     }
 
 
+    /**
+     * Determine les couleurs des voisins à un sommet donné.
+     * @param s Sommet étudié.
+     * @return Liste des couleurs des voisins.
+     */
     private LinkedList<String> couleursDiff(Sommet s){
         LinkedList<String> couleurs = new LinkedList<>();
 

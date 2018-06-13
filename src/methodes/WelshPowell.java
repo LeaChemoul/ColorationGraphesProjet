@@ -14,7 +14,10 @@ public class WelshPowell {
         this.graphe = graphe;
     }
 
-    //tri : 1 pour décroissant, 2 pour croissant, 3 pour aléatoire
+    /**
+     * Algorithme de Greedy.
+     * @param tri 1 pour décroissant, 2 pour croissant, 3 pour aléatoire
+     */
     public void algorithme(int tri){
         LinkedList<Sommet> listeOrdo;
         listeOrdo = Tris.trier(tri, graphe);

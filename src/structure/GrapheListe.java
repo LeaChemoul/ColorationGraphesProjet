@@ -154,6 +154,25 @@ public class GrapheListe extends Graphe {
         return true;
     }
 
+
+    private boolean containsNonOriente(Arc arc, ArrayList<Arc> arcs){
+        for(Arc unArc : arcs){
+            if(compareNonOriente(arc,unArc))
+                return true;
+        }
+        return false;
+    }
+
+    private boolean compareNonOriente(Arc arc1, Arc arc2){
+        if(arc1.getOrigine() == arc2.getOrigine() && arc1.getDestination() == arc2.getDestination())
+            return true;
+        else return arc1.getOrigine() == arc2.getDestination() && arc1.getDestination() == arc2.getOrigine();
+    }
+
+    //----------------------------------------------
+    //GESTION DES FICHIERS
+    //----------------------------------------------
+
     public GrapheListe deFichier(String path) throws IOException {
         String contenu = lireContenu(path);
         GrapheListe grapheListe =  new GrapheListe();
@@ -243,68 +262,6 @@ public class GrapheListe extends Graphe {
         return content.toString();
     }
 
-    @Override
-    public String toString() {
-        return "GrapheListe{" +
-                "nom='" + nom + '\'' +
-                ", nbSommets=" + nbSommets +
-                ", nbValSommets=" + nbValSommets +
-                ", nbArcs=" + nbArcs +
-                ", nbValArc=" + nbValArc +
-                ", L=" + L +
-                '}';
-    }
-
-    public String toStringGraphViz(){
-        String lien = (this.oriente)? " -> ":" -- ";
-        String debut = (this.oriente)? "digraph G {\n":"graph G {\n";
-        StringBuilder chaine = new StringBuilder(debut);
-        ArrayList<Arc> parcourus = new ArrayList<>();
-        for (Sommet sommet : this.sommets) {
-            chaine.append(sommet.getNom()).append(" [shape=circle, style=filled, color= ")
-                    .append(sommet.getCouleur())
-                    .append("];\n");
-            for (Arc arc :
-                    L.get(sommet)) {
-                if(!containsNonOriente(arc,parcourus)){
-                    chaine.append(arc.getOrigine().getNom()).append(lien)
-                            .append(arc.getDestination().getNom())
-                            .append(";\n");
-                    parcourus.add(arc);
-                }
-            }
-        }
-        chaine.append("}");
-        return chaine.toString();
-    }
-
-    public boolean containsNonOriente(Arc arc, ArrayList<Arc> arcs){
-        for(Arc unArc : arcs){
-            if(compareNonOriente(arc,unArc))
-                return true;
-        }
-        return false;
-    }
-
-    public boolean compareNonOriente(Arc arc1, Arc arc2){
-        if(arc1.getOrigine() == arc2.getOrigine() && arc1.getDestination() == arc2.getDestination())
-            return true;
-        else return arc1.getOrigine() == arc2.getDestination() && arc1.getDestination() == arc2.getOrigine();
-    }
-
-    public String toStringConsole(){
-        String lien = (this.oriente)? " -> ":" -- ";
-        String debut = (this.oriente)? "digraph G {\n":"graph G {\n";
-        StringBuilder chaine = new StringBuilder(debut);
-        for (Sommet sommet : this.sommets) {
-            chaine.append(sommet.getNom()).append(" [color= ")
-                    .append(sommet.getCoul())
-                    .append("];\n");
-        }
-        chaine.append("}");
-        return chaine.toString();
-    }
-
     @SuppressWarnings("Duplicates")
     public boolean generateFile(String path) {
         FileWriter fw = null;
@@ -341,7 +298,10 @@ public class GrapheListe extends Graphe {
         return !problem;
     }
 
+    //----------------------------------------------
     //GETTERS SETTERS
+    //----------------------------------------------
+
     public void setNom(String nom) {
         this.nom = nom;
     }
@@ -380,5 +340,57 @@ public class GrapheListe extends Graphe {
 
     public LinkedHashMap<Sommet, LinkedList<Arc>> getL() {
         return L;
+    }
+
+    //----------------------------------------------
+    //TO STRING
+    //----------------------------------------------
+
+    @Override
+    public String toString() {
+        return "GrapheListe{" +
+                "nom='" + nom + '\'' +
+                ", nbSommets=" + nbSommets +
+                ", nbValSommets=" + nbValSommets +
+                ", nbArcs=" + nbArcs +
+                ", nbValArc=" + nbValArc +
+                ", L=" + L +
+                '}';
+    }
+
+    public String toStringConsole(){
+        String lien = (this.oriente)? " -> ":" -- ";
+        String debut = (this.oriente)? "digraph G {\n":"graph G {\n";
+        StringBuilder chaine = new StringBuilder(debut);
+        for (Sommet sommet : this.sommets) {
+            chaine.append(sommet.getNom()).append(" [color= ")
+                    .append(sommet.getCoul())
+                    .append("];\n");
+        }
+        chaine.append("}");
+        return chaine.toString();
+    }
+
+    private String toStringGraphViz(){
+        String lien = (this.oriente)? " -> ":" -- ";
+        String debut = (this.oriente)? "digraph G {\n":"graph G {\n";
+        StringBuilder chaine = new StringBuilder(debut);
+        ArrayList<Arc> parcourus = new ArrayList<>();
+        for (Sommet sommet : this.sommets) {
+            chaine.append(sommet.getNom()).append(" [shape=circle, style=filled, color= ")
+                    .append(sommet.getCouleur())
+                    .append("];\n");
+            for (Arc arc :
+                    L.get(sommet)) {
+                if(!containsNonOriente(arc,parcourus)){
+                    chaine.append(arc.getOrigine().getNom()).append(lien)
+                            .append(arc.getDestination().getNom())
+                            .append(";\n");
+                    parcourus.add(arc);
+                }
+            }
+        }
+        chaine.append("}");
+        return chaine.toString();
     }
 }

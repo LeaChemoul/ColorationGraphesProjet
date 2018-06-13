@@ -15,7 +15,10 @@ public class Greedy {
         this.graphe = graphe;
     }
 
-    //tri : 1 pour décroissant, 2 pour croissant, 3 pour aléatoire
+    /**
+     * Algorithme de Greedy.
+     * @param tri 1 pour décroissant, 2 pour croissant, 3 pour aléatoire
+     */
     public void algorithme(int tri){
         LinkedList<String> couleursUtil = new LinkedList<>();
         LinkedList<Sommet> listeOrdo = Tris.trier(tri, graphe);
@@ -52,7 +55,13 @@ public class Greedy {
         //System.out.println(this.toString()); //pour afficher les couleurs assignées
     }
 
-
+    /**
+     * Cherche la plus petit couleur disponible pour un sommet.
+     * @param couleursVoisins Couleurs déjà utilisées apr els voisins du sommet.
+     * @param couleurs Couleurs disponibles.
+     * @return String de la couleur
+     * @throws NullPointerException si aucune couleur est disponible
+     */
     private String plusPetiteCouleur(LinkedList<String> couleursVoisins, Couleur[] couleurs) throws NullPointerException{
         for (Couleur couleur : couleurs) {
             if (!couleursVoisins.contains(couleur.getC()))
